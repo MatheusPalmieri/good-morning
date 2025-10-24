@@ -16,10 +16,18 @@ export const authenticateUser = async (
       password,
     });
 
-    if (response.data.return) {
+    if (response.data?.return) {
       return {
         success: false,
         message: response.data.return,
+      };
+    }
+
+    if (!response.data?.token || typeof response.data.token !== 'string') {
+      console.error('Token inválido ou ausente na resposta:', response.data);
+      return {
+        success: false,
+        message: 'Erro ao processar autenticação. Tente novamente.',
       };
     }
 
@@ -27,8 +35,23 @@ export const authenticateUser = async (
       success: true,
       token: response.data.token,
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Erro ao autenticar usuário:', error);
+
+    if (error.code === 'ECONNABORTED' || error.message?.includes('timeout')) {
+      return {
+        success: false,
+        message: 'Tempo de conexão esgotado. Tente novamente.',
+      };
+    }
+
+    if (error.response?.status === 401) {
+      return {
+        success: false,
+        message: 'Usuário ou senha incorretos.',
+      };
+    }
+
     return {
       success: false,
       message: 'Erro de conexão. Verifique sua internet.',

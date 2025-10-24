@@ -11,6 +11,7 @@ interface FormInputProps
   extends Omit<TextInputProps, 'value' | 'onChangeText' | 'onBlur'> {
   label: string;
   name: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<any>;
   error?: FieldError;
 }

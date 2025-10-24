@@ -78,8 +78,14 @@ export default function QuoteScreen() {
       router.replace('/login');
       return;
     }
-    fetchQuote();
-  }, [fetchQuote, isAuthenticated, router]);
+  }, [isAuthenticated, router]);
+
+  useEffect(() => {
+    if (isAuthenticated && token) {
+      fetchQuote();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (isLoading) {
     return <LoadingState />;
@@ -150,7 +156,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: -24,
+    marginTop: -80,
   },
   hintContainer: {
     flexDirection: 'row',

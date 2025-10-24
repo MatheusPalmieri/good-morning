@@ -4,7 +4,7 @@ import { create } from 'zustand';
 
 const TOKEN_KEY = 'auth_token';
 
-const saveToken = async (token: string) => {
+const saveToken = async (token: string): Promise<void> => {
   try {
     if (Platform.OS === 'web') {
       localStorage.setItem(TOKEN_KEY, token);
@@ -13,6 +13,7 @@ const saveToken = async (token: string) => {
     }
   } catch (error) {
     console.error('Error saving token:', error);
+    throw new Error('Falha ao salvar credenciais. Tente novamente.');
   }
 };
 
@@ -29,7 +30,7 @@ const getToken = async (): Promise<string | null> => {
   }
 };
 
-const deleteToken = async () => {
+const deleteToken = async (): Promise<void> => {
   try {
     if (Platform.OS === 'web') {
       localStorage.removeItem(TOKEN_KEY);
@@ -58,8 +59,14 @@ export const useAuthStore = create<AuthState>(set => ({
   isLoading: true,
 
   setToken: async (token: string) => {
-    await saveToken(token);
-    set({ token, isAuthenticated: true });
+    try {
+      await saveToken(token);
+      set({ token, isAuthenticated: true });
+    } catch (error) {
+      console.error('Erro ao configurar token:', error);
+      set({ token: null, isAuthenticated: false });
+      throw error;
+    }
   },
 
   loadToken: async () => {

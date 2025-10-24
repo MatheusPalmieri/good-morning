@@ -43,19 +43,16 @@ module.exports = defineConfig([
       },
     },
     rules: {
-      // Prettier
       'prettier/prettier': 'error',
 
-      // Regras básicas gerais
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'no-debugger': 'warn',
-      'no-unused-vars': 'off', // Desabilitado em favor do @typescript-eslint
+      'no-unused-vars': 'off',
       'no-var': 'error',
       'prefer-const': 'error',
       'prefer-arrow-callback': 'error',
       'no-duplicate-imports': 'error',
 
-      // TypeScript
       '@typescript-eslint/no-unused-vars': [
         'error',
         {
@@ -67,13 +64,11 @@ module.exports = defineConfig([
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-non-null-assertion': 'warn',
 
-      // React/React Native
       'react/prop-types': 'off',
       'react/react-in-jsx-scope': 'off',
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
 
-      // Import
       'import/order': [
         'error',
         {

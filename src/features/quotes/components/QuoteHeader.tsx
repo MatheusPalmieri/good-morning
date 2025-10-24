@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useMemo } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 interface QuoteHeaderProps {
@@ -6,12 +7,26 @@ interface QuoteHeaderProps {
 }
 
 export function QuoteHeader({ onLogout }: QuoteHeaderProps) {
-  const currentDate = new Date().toLocaleDateString('pt-BR', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+  const currentDate = useMemo(() => {
+    try {
+      const date = new Date();
+
+      if (isNaN(date.getTime())) {
+        console.error('Data inválida');
+        return 'Data indisponível';
+      }
+
+      return date.toLocaleDateString('pt-BR', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
+    } catch (error) {
+      console.error('Erro ao formatar data:', error);
+      return new Date().toLocaleDateString('pt-BR');
+    }
+  }, []);
 
   return (
     <View style={styles.container}>
