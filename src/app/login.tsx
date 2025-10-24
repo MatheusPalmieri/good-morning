@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   Image,
@@ -15,11 +15,15 @@ import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 
 import {
   authenticateUser,
+  BiometricButton,
   ErrorMessage,
   FormInput,
+  isBiometricAvailable,
   LoadingButton,
   LoginFormData,
   loginSchema,
+  RememberMeCheckbox,
+  saveBiometricCredentials,
   useAuthStore,
 } from '@/features/auth';
 
@@ -29,24 +33,40 @@ export default function LoginScreen() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
+  const [biometricAvailable, setBiometricAvailable] = useState(false);
 
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = useCallback(
-    async (data: LoginFormData) => {
+  useEffect(() => {
+    checkBiometric();
+  }, []);
+
+  const checkBiometric = async () => {
+    const available = await isBiometricAvailable();
+    setBiometricAvailable(available);
+  };
+
+  const performLogin = useCallback(
+    async (username: string, password: string) => {
       try {
         setIsLoading(true);
         setErrorMessage('');
 
-        const response = await authenticateUser(data.username, data.password);
+        const response = await authenticateUser(username, password);
 
         if (response.success && response.token) {
+          if (rememberMe && biometricAvailable) {
+            await saveBiometricCredentials(username, password);
+          }
+
           await setToken(response.token);
           router.replace('/quote');
         } else {
@@ -58,8 +78,28 @@ export default function LoginScreen() {
         setIsLoading(false);
       }
     },
-    [setToken, router]
+    [setToken, router, rememberMe, biometricAvailable]
   );
+
+  const onSubmit = useCallback(
+    async (data: LoginFormData) => {
+      await performLogin(data.username, data.password);
+    },
+    [performLogin]
+  );
+
+  const handleBiometricSuccess = useCallback(
+    (username: string, password: string) => {
+      setValue('username', username);
+      setValue('password', password);
+      performLogin(username, password);
+    },
+    [performLogin, setValue]
+  );
+
+  const handleBiometricError = useCallback((message: string) => {
+    setErrorMessage(message);
+  }, []);
 
   return (
     <LinearGradient
@@ -117,12 +157,25 @@ export default function LoginScreen() {
               editable={!isLoading}
             />
 
+            {biometricAvailable && (
+              <RememberMeCheckbox
+                checked={rememberMe}
+                onChange={setRememberMe}
+                disabled={isLoading}
+              />
+            )}
+
             <ErrorMessage message={errorMessage} />
 
             <LoadingButton
               title="Entrar"
               isLoading={isLoading}
               onPress={handleSubmit(onSubmit)}
+            />
+
+            <BiometricButton
+              onSuccess={handleBiometricSuccess}
+              onError={handleBiometricError}
             />
           </Animated.View>
         </ScrollView>

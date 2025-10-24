@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import { useMemo } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
@@ -7,6 +8,8 @@ interface QuoteHeaderProps {
 }
 
 export function QuoteHeader({ onLogout }: QuoteHeaderProps) {
+  const router = useRouter();
+
   const currentDate = useMemo(() => {
     try {
       const date = new Date();
@@ -34,13 +37,22 @@ export function QuoteHeader({ onLogout }: QuoteHeaderProps) {
         <Text style={styles.greeting}>Olá! 👋</Text>
         <Text style={styles.date}>{currentDate}</Text>
       </View>
-      <TouchableOpacity
-        onPress={onLogout}
-        style={styles.logoutButton}
-        activeOpacity={0.8}
-      >
-        <Ionicons name="log-out-outline" size={24} color="#FFFFFF" />
-      </TouchableOpacity>
+      <View style={styles.actions}>
+        <TouchableOpacity
+          onPress={() => router.push('/favorites')}
+          style={styles.favoritesButton}
+          activeOpacity={0.8}
+        >
+          <Ionicons name="heart-outline" size={24} color="#FFFFFF" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={onLogout}
+          style={styles.logoutButton}
+          activeOpacity={0.8}
+        >
+          <Ionicons name="log-out-outline" size={24} color="#FFFFFF" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -63,6 +75,20 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     opacity: 0.9,
     textTransform: 'capitalize',
+  },
+  actions: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  favoritesButton: {
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    padding: 12,
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 4,
   },
   logoutButton: {
     backgroundColor: 'rgba(239, 68, 68, 0.9)',

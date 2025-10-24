@@ -50,6 +50,10 @@ export default function QuoteScreen() {
 
       if (response.success && response.quoteoftheday) {
         setQuote(response.quoteoftheday);
+        const { addToHistory } = await import(
+          '@/shared/services/storageService'
+        );
+        await addToHistory(response.quoteoftheday);
       } else {
         setError(response.message || 'Erro ao buscar frase do dia');
         if (

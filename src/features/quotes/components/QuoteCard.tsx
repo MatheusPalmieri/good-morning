@@ -1,5 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
 
+import { FavoriteButton } from './FavoriteButton';
+import { ShareButton } from './ShareButton';
+
 interface QuoteCardProps {
   quote: string;
 }
@@ -17,6 +20,11 @@ export function QuoteCard({ quote }: QuoteCardProps) {
 
       <Text style={styles.quoteText}>&quot;{quote}&quot;</Text>
       <View style={styles.divider} />
+
+      <View style={styles.actionsContainer}>
+        <FavoriteButton quote={quote} />
+        <ShareButton quote={quote} />
+      </View>
     </View>
   );
 }
@@ -71,5 +79,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#0EA5E9',
     borderRadius: 2,
     alignSelf: 'center',
+    marginBottom: 24,
+  },
+  actionsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 16,
   },
 });

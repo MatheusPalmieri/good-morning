@@ -22,14 +22,27 @@ npm run web         # Navegador
 ### Autenticação
 
 - Login com validação
+- **Autenticação biométrica** (Face ID / Touch ID)
+- Checkbox "Lembrar-me" para salvar credenciais
 - Persistência de sessão
 - Logout automático em caso de erro
 
 ### Frase do Dia
 
 - Exibição da quote com autor
-- Atualização a cada requisição
+- **Pull to refresh** para atualizar
+- **Compartilhar frase** (WhatsApp, Instagram, etc)
+- **Favoritar frases** (coração)
 - Estados de loading e erro
+
+### Favoritos e Histórico
+
+- **Tela dedicada** com abas
+- Lista de frases favoritadas
+- Histórico das últimas 50 frases visualizadas
+- Compartilhar frases salvas
+- Remover favoritos
+- Limpar histórico
 
 ### Deep Link
 
@@ -51,6 +64,10 @@ Senha: salame1
 - **Zod** - Validação de formulários
 - **Axios** - Requisições HTTP
 - **AsyncStorage** - Persistência local
+- **Expo Local Authentication** - Biometria
+- **Expo Sharing** - Compartilhamento
+- **Expo Haptics** - Feedback tátil
+- **React Native Reanimated** - Animações
 
 ## 📁 Estrutura do Projeto
 
@@ -92,11 +109,15 @@ Header: token: <seu_token>
 
 ## 🎨 Features de UX
 
-- Animações suaves
+- Animações suaves (fade, slide)
+- **Feedback tátil** (haptics) ao favoritar
+- **Pull to refresh** nativo
 - Feedback visual em todas as ações
-- Loading states
+- Loading states elegantes
 - Tratamento de erros amigável
 - Layout responsivo
+- Dark mode automático (sistema)
+- Timestamps relativos (há 5m, ontem, etc)
 
 ## 📝 Scripts Úteis
 
@@ -129,6 +150,8 @@ npx expo start -c  # Limpa cache
 
 ## ✅ Checklist do Desafio
 
+### Obrigatório
+
 - [x] Tela de login funcional
 - [x] Tela de frase do dia
 - [x] Autenticação via API
@@ -137,3 +160,16 @@ npx expo start -c  # Limpa cache
 - [x] Interface responsiva
 - [x] Código organizado
 - [x] TypeScript strict
+
+### Extras Implementados
+
+- [x] Autenticação biométrica (Face ID / Touch ID)
+- [x] Pull to refresh
+- [x] Compartilhar frases
+- [x] Sistema de favoritos
+- [x] Histórico de frases
+- [x] Tela de favoritos/histórico
+- [x] Animações fluidas
+- [x] Feedback tátil (haptics)
+- [x] Persistência de dados local
+- [x] ESLint + Prettier + Husky
