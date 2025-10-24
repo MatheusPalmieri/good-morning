@@ -1,7 +1,8 @@
-import { useAuthStore } from '@/features/auth';
-import { Loading } from '@/shared/components';
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
+
+import { useAuthStore } from '@/features/auth';
+import { Loading } from '@/shared/components';
 
 export default function Index() {
   const router = useRouter();
@@ -19,4 +20,3 @@ export default function Index() {
 
   return <Loading message="Carregando..." />;
 }
-

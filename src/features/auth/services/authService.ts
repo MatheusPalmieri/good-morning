@@ -15,12 +15,12 @@ export const authenticateUser = async (
       username,
       password,
     });
-    
-    if(response.data.return) {
+
+    if (response.data.return) {
       return {
         success: false,
         message: response.data.return,
-      }
+      };
     }
 
     return {

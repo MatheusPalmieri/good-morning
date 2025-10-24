@@ -5,7 +5,9 @@ interface LoadingStateProps {
   message?: string;
 }
 
-export function LoadingState({ message = 'Carregando sua frase do dia...' }: LoadingStateProps) {
+export function LoadingState({
+  message = 'Carregando sua frase do dia...',
+}: LoadingStateProps) {
   return (
     <LinearGradient
       colors={['#0EA5E9', '#38BDF8', '#7DD3FC']}
@@ -34,4 +36,3 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
 });
-

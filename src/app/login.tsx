@@ -9,7 +9,7 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
-  Text
+  Text,
 } from 'react-native';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 
@@ -20,12 +20,12 @@ import {
   LoadingButton,
   LoginFormData,
   loginSchema,
-  useAuthStore
+  useAuthStore,
 } from '@/features/auth';
 
 export default function LoginScreen() {
   const router = useRouter();
-  const setToken = useAuthStore((state) => state.setToken);
+  const setToken = useAuthStore(state => state.setToken);
 
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -38,25 +38,28 @@ export default function LoginScreen() {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = useCallback(async (data: LoginFormData) => {
-    try {
-      setIsLoading(true);
-      setErrorMessage('');
+  const onSubmit = useCallback(
+    async (data: LoginFormData) => {
+      try {
+        setIsLoading(true);
+        setErrorMessage('');
 
-      const response = await authenticateUser(data.username, data.password);
+        const response = await authenticateUser(data.username, data.password);
 
-      if (response.success && response.token) {
-        await setToken(response.token);
-        router.replace('/quote');
-      } else {
-        setErrorMessage(response.message || 'Erro ao fazer login');
+        if (response.success && response.token) {
+          await setToken(response.token);
+          router.replace('/quote');
+        } else {
+          setErrorMessage(response.message || 'Erro ao fazer login');
+        }
+      } catch {
+        setErrorMessage('Erro inesperado ao fazer login. Tente novamente.');
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      setErrorMessage('Erro inesperado ao fazer login. Tente novamente.');
-    } finally {
-      setIsLoading(false);
-    }
-  }, [setToken, router]);
+    },
+    [setToken, router]
+  );
 
   return (
     <LinearGradient
@@ -72,13 +75,24 @@ export default function LoginScreen() {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          <Animated.View entering={FadeInUp.duration(600)} style={styles.header}>
-            <Image source={require('@/features/auth/assets/sun.png')} style={styles.logo} />
+          <Animated.View
+            entering={FadeInUp.duration(600)}
+            style={styles.header}
+          >
+            <Image
+              source={require('@/features/auth/assets/sun.png')}
+              style={styles.logo}
+            />
             <Text style={styles.title}>Bom Dia!</Text>
-            <Text style={styles.subtitle}>Sua frase inspiradora espera por você</Text>
+            <Text style={styles.subtitle}>
+              Sua frase inspiradora espera por você
+            </Text>
           </Animated.View>
 
-          <Animated.View entering={FadeInDown.duration(600).delay(200)} style={styles.card}>
+          <Animated.View
+            entering={FadeInDown.duration(600).delay(200)}
+            style={styles.card}
+          >
             <Text style={styles.cardTitle}>Entre na sua conta</Text>
 
             <FormInput
@@ -172,4 +186,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-

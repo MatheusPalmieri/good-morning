@@ -1,11 +1,22 @@
-import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, TouchableOpacityProps } from 'react-native';
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from 'react-native';
 
 interface LoadingButtonProps extends TouchableOpacityProps {
   isLoading?: boolean;
   title: string;
 }
 
-export function LoadingButton({ isLoading = false, title, style, ...props }: LoadingButtonProps) {
+export function LoadingButton({
+  isLoading = false,
+  title,
+  style,
+  ...props
+}: LoadingButtonProps) {
   return (
     <TouchableOpacity
       style={[styles.button, isLoading && styles.buttonDisabled, style]}
@@ -47,4 +58,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-

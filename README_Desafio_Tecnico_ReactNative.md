@@ -1,4 +1,3 @@
-
 # Desafio Técnico – App "Frase do Dia"
 
 Parabéns por chegar à fase final do processo seletivo. Agora é hora de colocar a mão no código.
@@ -6,6 +5,7 @@ Parabéns por chegar à fase final do processo seletivo. Agora é hora de coloca
 ## 🎯 Objetivo
 
 Criar um aplicativo React Native com as seguintes funcionalidades:
+
 - Tela de login (com autenticação via API)
 - Tela que exibe a "frase do dia" após o login
 - Interface agradável, fluida e intuitiva
@@ -14,6 +14,7 @@ Criar um aplicativo React Native com as seguintes funcionalidades:
 ## 📦 Funcionalidades obrigatórias
 
 ### 1. Tela de Login
+
 - Campos: usuário e senha
 - Chamada POST para a API de autenticação:
   ```
@@ -30,6 +31,7 @@ Criar um aplicativo React Native com as seguintes funcionalidades:
 - Se falhar: lidar com o erro de forma clara para o usuário
 
 ### 2. Tela de Frase do Dia
+
 - Consumir esta API com o token:
   ```
   https://n8n.jrmendonca.com.br/webhook/18a8a172-0c9e-4dc3-9cf0-fe2c389e27eb/frasedodia
@@ -43,11 +45,13 @@ Criar um aplicativo React Native com as seguintes funcionalidades:
 ## 🌐 Funcionalidade adicional – Deep Link
 
 Após o app estar instalado, o seguinte endereço deve abrir o app:
+
 ```
 https://<seuapp>/quoteoftheDay
 ```
 
 **Comportamento esperado:**
+
 - Se o usuário estiver autenticado: exibe a Frase do Dia
 - Caso contrário: redireciona para login
 
@@ -55,13 +59,13 @@ https://<seuapp>/quoteoftheDay
 
 Você será avaliado pelos seguintes critérios:
 
-| Critério                         | Peso |
-|----------------------------------|------|
-| Organização do código            | ★★★★☆
-| UX e beleza visual               | ★★★★☆
-| Clareza na estrutura do projeto  | ★★★☆☆
-| Tratamento de erros              | ★★★☆☆
-| Foco e escopo dentro do prazo    | ★★★★☆
+| Critério                        | Peso  |
+| ------------------------------- | ----- |
+| Organização do código           | ★★★★☆ |
+| UX e beleza visual              | ★★★★☆ |
+| Clareza na estrutura do projeto | ★★★☆☆ |
+| Tratamento de erros             | ★★★☆☆ |
+| Foco e escopo dentro do prazo   | ★★★★☆ |
 
 ## ⏰ Prazo
 

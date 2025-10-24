@@ -10,7 +10,7 @@ export function QuoteHeader({ onLogout }: QuoteHeaderProps) {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
   });
 
   return (
@@ -60,4 +60,3 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
 });
-

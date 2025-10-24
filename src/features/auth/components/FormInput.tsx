@@ -1,14 +1,27 @@
 import { Control, Controller, FieldError } from 'react-hook-form';
-import { StyleSheet, Text, TextInput, TextInputProps, View } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TextInputProps,
+  View,
+} from 'react-native';
 
-interface FormInputProps extends Omit<TextInputProps, 'value' | 'onChangeText' | 'onBlur'> {
+interface FormInputProps
+  extends Omit<TextInputProps, 'value' | 'onChangeText' | 'onBlur'> {
   label: string;
   name: string;
   control: Control<any>;
   error?: FieldError;
 }
 
-export function FormInput({ label, name, control, error, ...textInputProps }: FormInputProps) {
+export function FormInput({
+  label,
+  name,
+  control,
+  error,
+  ...textInputProps
+}: FormInputProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
@@ -63,4 +76,3 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
 });
-

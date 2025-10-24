@@ -45,23 +45,23 @@ interface AuthState {
   token: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  
+
   setToken: (token: string) => Promise<void>;
   loadToken: () => Promise<void>;
   logout: () => Promise<void>;
   setLoading: (loading: boolean) => void;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
+export const useAuthStore = create<AuthState>(set => ({
   token: null,
   isAuthenticated: false,
   isLoading: true,
-  
+
   setToken: async (token: string) => {
     await saveToken(token);
     set({ token, isAuthenticated: true });
   },
-  
+
   loadToken: async () => {
     try {
       set({ isLoading: true });
@@ -78,12 +78,12 @@ export const useAuthStore = create<AuthState>((set) => ({
       set({ isLoading: false });
     }
   },
-  
+
   logout: async () => {
     await deleteToken();
     set({ token: null, isAuthenticated: false });
   },
-  
+
   setLoading: (loading: boolean) => {
     set({ isLoading: loading });
   },

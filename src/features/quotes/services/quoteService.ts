@@ -6,15 +6,20 @@ export interface QuoteResponse {
   message?: string;
 }
 
-export const getQuoteOfTheDay = async (token: string): Promise<QuoteResponse> => {
+export const getQuoteOfTheDay = async (
+  token: string
+): Promise<QuoteResponse> => {
   try {
-    const response = await apiClient.get('/18a8a172-0c9e-4dc3-9cf0-fe2c389e27eb/frasedodia', {
-      headers: {
-        token: token,
-      },
-    });
+    const response = await apiClient.get(
+      '/18a8a172-0c9e-4dc3-9cf0-fe2c389e27eb/frasedodia',
+      {
+        headers: {
+          token: token,
+        },
+      }
+    );
 
-    if(Array.isArray(response.data)) {
+    if (Array.isArray(response.data)) {
       const quote = response.data[0];
       return {
         success: true,
@@ -39,4 +44,3 @@ export const getQuoteOfTheDay = async (token: string): Promise<QuoteResponse> =>
     };
   }
 };
-

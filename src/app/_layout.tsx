@@ -10,7 +10,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     loadToken();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

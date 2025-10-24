@@ -2,7 +2,13 @@ import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
-import { RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -12,7 +18,7 @@ import {
   LoadingState,
   QuoteCard,
   QuoteError,
-  QuoteHeader
+  QuoteHeader,
 } from '@/features/quotes';
 
 export default function QuoteScreen() {
@@ -31,7 +37,7 @@ export default function QuoteScreen() {
       console.error('Erro ao fazer logout:', error);
     }
   }, [logout, router]);
-  
+
   const fetchQuote = useCallback(async () => {
     if (!token) {
       router.replace('/login');
@@ -46,7 +52,10 @@ export default function QuoteScreen() {
         setQuote(response.quoteoftheday);
       } else {
         setError(response.message || 'Erro ao buscar frase do dia');
-        if (response.message?.includes('token') || response.message?.includes('autenticação')) {
+        if (
+          response.message?.includes('token') ||
+          response.message?.includes('autenticação')
+        ) {
           await handleLogout();
         }
       }
@@ -86,9 +95,9 @@ export default function QuoteScreen() {
           style={styles.scrollView}
           contentContainerStyle={styles.scrollContent}
           refreshControl={
-            <RefreshControl 
-              refreshing={refreshing} 
-              onRefresh={onRefresh} 
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
               tintColor="#FFFFFF"
               colors={['#FFFFFF']}
             />
@@ -99,7 +108,10 @@ export default function QuoteScreen() {
             <QuoteHeader onLogout={handleLogout} />
           </Animated.View>
 
-          <Animated.View entering={FadeInDown.duration(600).delay(200)} style={styles.cardContainer}>
+          <Animated.View
+            entering={FadeInDown.duration(600).delay(200)}
+            style={styles.cardContainer}
+          >
             {error ? (
               <QuoteError message={error} onRetry={fetchQuote} />
             ) : (

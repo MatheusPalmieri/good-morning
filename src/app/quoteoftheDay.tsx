@@ -1,7 +1,8 @@
-import { useAuthStore } from '@/features/auth';
-import { Loading } from '@/shared/components';
 import { useRouter } from 'expo-router';
 import { useCallback, useEffect } from 'react';
+
+import { useAuthStore } from '@/features/auth';
+import { Loading } from '@/shared/components';
 
 export default function QuoteOfTheDayDeepLink() {
   const router = useRouter();
@@ -24,4 +25,3 @@ export default function QuoteOfTheDayDeepLink() {
 
   return <Loading message="Carregando..." />;
 }
-
