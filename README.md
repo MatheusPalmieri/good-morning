@@ -1,101 +1,139 @@
-# Good Morning - Projeto React Native
+# Good Morning ☀️
 
-## Ferramentas de Qualidade de Código
+App React Native de Frase do Dia com autenticação.
 
-Este projeto está configurado com ESLint, Prettier e Husky para garantir a qualidade do código.
-
-### 📋 Scripts Disponíveis
-
-#### Desenvolvimento
-
-- `npm start` - Inicia o servidor Expo
-- `npm run android` - Executa no Android
-- `npm run ios` - Executa no iOS
-- `npm run web` - Executa no navegador
-
-#### Verificação de Código
-
-- `npm run lint` - Verifica todo o projeto com ESLint
-- `npm run lint:fix` - Corrige automaticamente problemas do ESLint
-- `npm run format` - Formata todo o projeto com Prettier
-- `npm run format:check` - Verifica formatação sem modificar arquivos
-- `npm run check` - Executa lint e verificação de formatação
-- `npm run fix` - Corrige lint e formatação automaticamente
-
-### 🔍 ESLint
-
-O ESLint está configurado com as seguintes regras:
-
-- **Regras Gerais**: Previne uso de `var`, `debugger`, e importações duplicadas
-- **TypeScript**: Detecta variáveis não utilizadas, uso de `any` (warning)
-- **React/React Native**: Rules of Hooks e exhaustive-deps
-- **Import**: Ordenação automática de imports (alfabética e por tipo)
-- **Prettier**: Integração completa para garantir formatação consistente
-
-### 💅 Prettier
-
-Configuração do Prettier:
-
-- Single quotes
-- Ponto e vírgula obrigatório
-- Trailing commas (ES5)
-- Tab width: 2 espaços
-- Print width: 80 caracteres
-- Arrow parens: avoid
-
-### 🪝 Husky + Lint-Staged
-
-**Automação no Git Commit:**
-
-Antes de cada commit, automaticamente:
-
-1. ESLint verifica e corrige os arquivos modificados
-2. Prettier formata os arquivos modificados
-3. Apenas os arquivos modificados são verificados (mais rápido!)
-
-**Arquivos verificados:**
-
-- JavaScript/TypeScript: `*.{js,jsx,ts,tsx}`
-- Outros: `*.{json,md}`
-
-### 🚀 Como Usar
-
-#### Verificar todo o projeto
+## 🚀 Como Rodar
 
 ```bash
-npm run check
+npm install
+npm start
 ```
 
-#### Corrigir automaticamente todo o projeto
+Para rodar em dispositivo específico:
 
 ```bash
-npm run fix
+npm run android     # Android
+npm run ios         # iOS
+npm run web         # Navegador
 ```
 
-#### Verificar apenas arquivos modificados (manual)
+## 📱 Funcionalidades
+
+### Autenticação
+
+- Login com validação
+- Persistência de sessão
+- Logout automático em caso de erro
+
+### Frase do Dia
+
+- Exibição da quote com autor
+- Atualização a cada requisição
+- Estados de loading e erro
+
+### Deep Link
+
+- URL: `https://goodmorning/quoteoftheDay`
+- Verifica autenticação automaticamente
+- Redireciona para login se necessário
+
+## 🔑 Credenciais de Teste
+
+```
+Usuário: joaquim
+Senha: salame1
+```
+
+## 🛠️ Tecnologias
+
+- **Expo Router** - Navegação
+- **Zustand** - Gerenciamento de estado
+- **Zod** - Validação de formulários
+- **Axios** - Requisições HTTP
+- **AsyncStorage** - Persistência local
+
+## 📁 Estrutura do Projeto
+
+```
+src/
+  ├── app/                    # Rotas (Expo Router)
+  │   ├── _layout.tsx         # Layout principal
+  │   ├── index.tsx           # Home
+  │   ├── login.tsx           # Tela de login
+  │   └── quote.tsx           # Tela da frase
+  ├── features/
+  │   ├── auth/               # Autenticação
+  │   │   ├── components/     # Inputs, botões
+  │   │   ├── schemas/        # Validações Zod
+  │   │   ├── services/       # API de auth
+  │   │   └── store/          # Zustand store
+  │   └── quotes/             # Frases
+  │       ├── components/     # Cards, headers
+  │       └── services/       # API de quotes
+  └── shared/                 # Compartilhado
+      ├── components/         # Loading, etc
+      └── services/           # API client
+```
+
+## 🌐 APIs
+
+### Autenticação
+
+```
+POST https://n8n.jrmendonca.com.br/webhook/testeReact/autenticar
+```
+
+### Frase do Dia
+
+```
+GET https://n8n.jrmendonca.com.br/webhook/18a8a172-0c9e-4dc3-9cf0-fe2c389e27eb/frasedodia
+Header: token: <seu_token>
+```
+
+## 🎨 Features de UX
+
+- Animações suaves
+- Feedback visual em todas as ações
+- Loading states
+- Tratamento de erros amigável
+- Layout responsivo
+
+## 📝 Scripts Úteis
 
 ```bash
-npx lint-staged
+npm run lint        # Verifica código
+npm run format      # Formata código
+npm run fix         # Corrige tudo automaticamente
+npm run check       # Verifica sem modificar
 ```
 
-#### Commit automático com verificação
+## 🐛 Troubleshooting
+
+**Erro ao instalar dependências:**
 
 ```bash
-git add .
-git commit -m "sua mensagem"
-# Os hooks executarão automaticamente!
+rm -rf node_modules package-lock.json
+npm install
 ```
 
-### 🎯 Benefícios
+**App não abre no Android:**
 
-- ✅ Código consistente e padronizado
-- ✅ Menos erros em produção
-- ✅ Commits mais limpos
-- ✅ Revisão de código mais fácil
-- ✅ Menos conflitos de merge
+```bash
+npx expo start -c  # Limpa cache
+```
 
-### 📝 Notas
+**Deep link não funciona:**
 
-- O pre-commit hook pode ser pulado com `--no-verify`, mas não é recomendado
-- Warnings (⚠️) não bloqueiam commits, apenas erros (❌)
-- Configure seu editor para formatar ao salvar para melhor experiência
+- Verifique se o app está instalado
+- Teste com: `npx uri-scheme open goodmorning://quoteoftheDay --android`
+
+## ✅ Checklist do Desafio
+
+- [x] Tela de login funcional
+- [x] Tela de frase do dia
+- [x] Autenticação via API
+- [x] Tratamento de erros
+- [x] Deep linking
+- [x] Interface responsiva
+- [x] Código organizado
+- [x] TypeScript strict
